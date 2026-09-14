@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>MagFlip - Local Test</title>
+  <!--
+    This page loads the bundle built from the local source code.
+    1. npm run build:local
+    2. npm run serve
+    3. open http://localhost:8080/docs/examples/local/
+  -->
+  <script src="../../../packages/minjs/magflip.min.js"></script>
+  <style>
+    #bookShelf .book,
+    #bookShelf .book-holder,
+    #bookShelf .book-on-shelf {
+      width: 200px !important;
+      height: 200px !important;
+    }
+    #toolbar {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 200;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    #buildGuide {
+      margin: 40px;
+      font-family: monospace;
+      color: #b00020;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sample images are shared with the prebuild example. -->
+  <script>
+    const RESOURCE_DIR = '../prebuild/resources';
+
+    function showBuildGuide() {
+      document.body.innerHTML =
+        '<pre id="buildGuide">magflip.min.js was not found.\n\n' +
+        'Run the following commands in the repository root:\n' +
+        '  npm run build:local\n  npm run serve</pre>';
+    }
+
+    /** Creates a Book whose pages are page0.jpg ~ page{pageCnt-1}.jpg in resources/book{bookNum}. */
+    function createSampleBook(bookNum, pageCnt) {
+      const pages = [];
+      for (let i = 0; i < pageCnt; i++) {
+        pages.push({ id: `page${i}`, index: i, image: `${RESOURCE_DIR}/book${bookNum}/page${i}.jpg` });
+      }
+
+      const cover = pages[0].image;
+      const book = new Book({
+        id: `book${bookNum}`,
+        lastPageIndex: pageCnt - 1,
+        thumbnails: { spine: cover, small: cover, medium: cover, cover: { front: cover, back: cover } },
+      });
+      book.importPages(pages, { width: 700, height: 700 });
+      return book;
+    }
+
+    /** Adds prev/next/move buttons and a zoom slider to the viewer. */
+    function addToolbar(bookViewer, flipView) {
+      const toolbar = document.createElement('div');
+      toolbar.id = 'toolbar';
+      toolbar.className = 'do-not-remove';
+      toolbar.innerHTML = `
+        <button data-action="prev">Prev</button>
+        <button data-action="next">Next</button>
+        <input id="pageIndex" type="number" min="0" value="4" style="width:50px" />
+        <button data-action="move">Move</button>
+        <input id="zoomRange" type="range" min="0.5" max="2" step="0.01" value="1" />
+      `;
+      toolbar.addEventListener('click', (event) => {
+        const action = event.target.dataset.action;
+        if (action === 'prev') { flipView.prevPage(); }
+        if (action === 'next') { flipView.nextPage(); }
+        if (action === 'move') { flipView.moveTo(Number(document.getElementById('pageIndex').value)); }
+      });
+      toolbar.querySelector('#zoomRange').addEventListener('input', (event) => {
+        bookViewer.setZoomLevel(Number(event.target.value));
+      });
+      bookViewer.element.appendChild(toolbar);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof window.Book === 'undefined') {
+        showBuildGuide();
+        return;
+      }
+
+      const shelfManager = new BookShelfManager();
+      const bookViewer = shelfManager.getBookViewer();
+      const flipView = new FlipView();
+
+      bookViewer.registerView(flipView);
+      bookViewer.setCurView(flipView.id);
+
+      shelfManager.importBookToShelf(createSampleBook(1, 6));
+      shelfManager.importBookToShelf(createSampleBook(2, 10));
+      shelfManager.importBookToShelf(createSampleBook(3, 16));
+
+      addToolbar(bookViewer, flipView);
+
+      // Exposed for debugging in the browser console.
+      window.shelfManager = shelfManager;
+      window.bookViewer = bookViewer;
+      window.flipView = flipView;
+    });
+  </script>
+</body>
+</html>

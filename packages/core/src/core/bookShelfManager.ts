@@ -3,7 +3,7 @@ import { BookSize } from '../common/dimension';
 import { BookShelf } from './bookShelf';
 import { Book } from './book';
 import { BookViewer } from './bookViewer';
-import { deepMerge } from 'src/common/helper';
+import { deepMerge } from '../common/helper';
 
 export interface IBookShelfManagerConfig {
   hideBookShelf?: boolean;

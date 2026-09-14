@@ -3,7 +3,7 @@ import { BookSize, ISize, SizeExt } from "../common/dimension";
 import { BookEl } from "./bookEl";
 import { Page } from "./page";
 import { PageLabel } from "./pageLabel";
-import { deepMerge } from "src/common/helper";
+import { deepMerge } from "../common/helper";
 
 
 export type TRequiredBookData = DeepRequired<IBookData>;

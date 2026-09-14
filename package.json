@@ -9,6 +9,15 @@
     "packages/*"
   ],
   "scripts": {
+    "build:local": "npm run build:local --workspace packages/core && npm run build:local --workspace packages/flipview && npm run build:local --workspace packages/scrollview && npm run build:local --workspace packages/minjs",
+    "typecheck": "npm run typecheck --ws --if-present",
+    "test": "npm test --ws --if-present",
+    "serve": "node scripts/serve.mjs",
+    "dev": "npm run build:local && npm run serve",
+    "docs:install": "npm install --prefix website",
+    "docs:start": "npm run build:local && npm start --prefix website",
+    "docs:build": "npm run build:local && npm run build --prefix website",
+    "docs:serve": "npm run serve --prefix website",
     "build:dev:minjs": "npm run build:dev --workspace packages/minjs",
     "build:dev:watch:minjs": "npm run build:dev:watch --workspace packages/minjs",
     "build:minjs": "npm run build --workspace packages/minjs",

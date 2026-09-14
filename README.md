@@ -28,16 +28,43 @@ Please refer to the [sample code](./docs/examples/prebuild) for more details.
 <br>
 <br>
 
+## Documentation
+Documentation is built with [Docusaurus](https://docusaurus.io/) in [`website/`](./website).
+
+| Docs | Path | For |
+| --- | --- | --- |
+| User Guide | [`website/user-docs`](./website/user-docs) | People who use MagFlip in their web pages |
+| Developer Guide | [`website/dev-docs`](./website/dev-docs) | People who develop MagFlip itself (architecture, flip math, build & release) |
+
+```bash
+npm run docs:install   # first time only
+npm run docs:start     # http://localhost:3000
+```
+
+<br>
+
+## Local development
+```bash
+npm install
+npm run build:local    # build all packages WITHOUT bumping versions (npm run build bumps patch versions)
+npm test               # unit tests
+npm run typecheck
+npm run serve          # http://localhost:8080/docs/examples/local/
+```
+
+<br>
+<br>
+
 ## Flip Effect in math
-![Flip Effect from the corner on right bottom 1](./docs/resources/flipEffectRightBottom1.png)
-![Flip Effect from the corner on right bottom 2](./docs/resources/flipEffectRightBottom2.png)
-![Flip Effect from the corner on right bottom 3](./docs/resources/flipEffectRightBottom3.png)
+![Flip Effect from the corner on right bottom 1](./website/static/img/flip-math/flipEffectRightBottom1.png)
+![Flip Effect from the corner on right bottom 2](./website/static/img/flip-math/flipEffectRightBottom2.png)
+![Flip Effect from the corner on right bottom 3](./website/static/img/flip-math/flipEffectRightBottom3.png)
 
 <br>
 <br>
 
 ## The location of the mouse cursor
-![The Areas of Mouse Cursor Point1](./docs/resources/mousePointArea1.png)
-![The Areas of Mouse Cursor Point2](./docs/resources/mousePointArea2.png)
-![The Areas of Mouse Cursor Point3](./docs/resources/mousePointArea3.png)
-![The Areas of Mouse Cursor Point4](./docs/resources/mousePointArea4.png)
+![The Areas of Mouse Cursor Point1](./website/static/img/flip-math/mousePointArea1.png)
+![The Areas of Mouse Cursor Point2](./website/static/img/flip-math/mousePointArea2.png)
+![The Areas of Mouse Cursor Point3](./website/static/img/flip-math/mousePointArea3.png)
+![The Areas of Mouse Cursor Point4](./website/static/img/flip-math/mousePointArea4.png)
