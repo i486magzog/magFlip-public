@@ -11,36 +11,37 @@ export function Example1() {
       return;
     }
     else {
+      const base = import.meta.env.BASE_URL;
       const pages = [
         {
             id: "page0",
             index: 0,
-            image: '/resources/book1/page0.jpg'
+            image: `${base}resources/book1/page0.jpg`
         },
         {
             id: "page1",
             index: 1,
-            image: '/resources/book1/page1.jpg'
+            image: `${base}resources/book1/page1.jpg`
         },
         {
             id: "page2",
             index: 2,
-            image: '/resources/book1/page2.jpg'
+            image: `${base}resources/book1/page2.jpg`
         },
         {
             id: "page3",
             index: 3,
-            image: '/resources/book1/page3.jpg'
+            image: `${base}resources/book1/page3.jpg`
         },
         {
             id: "page4",
             index: 4,
-            image: '/resources/book1/page4.jpg'
+            image: `${base}resources/book1/page4.jpg`
         },
         {
             id: "page5",
             index: 5,
-            image: '/resources/book1/page5.jpg'
+            image: `${base}resources/book1/page5.jpg`
         },
       ];
 
